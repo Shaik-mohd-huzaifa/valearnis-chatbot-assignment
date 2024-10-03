@@ -13,8 +13,8 @@ class Command(BaseCommand):
 
         # Save the model and vectorizer
         joblib.dump(
-            model, "./valearns/ml_models_data/Model_V1.pkl"
+            model, "./valearns/ml_models_data/model.pkl"
         )  # Save the trained model
         joblib.dump(
-            vectorizer, "./valearns/ml_models_data/Vectorizer_V1.pkl"
+            vectorizer, "./valearns/ml_models_data/vectorizer.pkl"
         )  # Save the vectorizer

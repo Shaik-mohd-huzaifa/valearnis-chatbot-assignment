@@ -1,0 +1,67 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+virtual-environmen/
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+*.db
+
+# Ignore the 'local' settings file if you use different settings for development and production
+/settings_local.py
+
+# Secret key and environment variable files
+.env
+
+# Django migrations
+*/migrations/*
+!*/migrations/__init__.py
+
+# Static and media files
+/staticfiles/
+/media/
+
+# Ignore compiled static files if you're using collectstatic
+/static/
+
+# Ignore cache files
+*.cache
+*.mo
+*.swp
+
+# VSCode workspace settings
+.vscode/
+
+# Node.js related files (if using npm for frontend dependencies)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# macOS specific
+.DS_Store
+
+# JetBrains IDEs
+.idea/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
