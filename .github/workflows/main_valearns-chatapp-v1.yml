@@ -27,19 +27,19 @@ jobs:
           python -m venv venv
           source venv/bin/activate
       
-      - name: Change directory to app location (backend/backend/valearns)
-        run: cd backend/backend/valearns
+      - name: Change directory to app location (backend/backend)
+        run: cd backend/backend
 
       - name: Install dependencies
         run: |
-          cd backend/backend/valearns
+          cd backend/backend
           pip install -r requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
         run: |
-          cd backend/backend/valearns
+          cd backend/backend
           zip release.zip ./* -r
 
       - name: Upload artifact for deployment jobs
@@ -47,7 +47,7 @@ jobs:
         with:
           name: python-app
           path: |
-            backend/backend/valearns/release.zip
+            backend/backend
             !venv/
 
   deploy:
