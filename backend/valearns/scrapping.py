@@ -4,7 +4,7 @@ from django.conf import settings
 from langchain_community.document_loaders import WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from django.config import settings
+from django.conf import settings
 
 # from langchain_community.embeddings import AzureOpenAIEmbeddings
 from langchain_openai import AzureOpenAIEmbeddings
