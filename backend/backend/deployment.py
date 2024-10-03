@@ -6,13 +6,24 @@ env = environ.Env(DEBUG=(bool, False))
 
 environ.Env.read_env()
 
-ALLOWED_HOSTS = [env("WEBSITE_HOSTNAME")]
+ALLOWED_HOSTS = [
+    env(
+        "WEBSITE_HOSTNAME",
+        "https://valearns-chatapp-v1-epf8gwcndmavcufx.australiacentral-01.azurewebsites.net/",
+    )
+]
 
-CSRF_TRUSTED_ORIGINS = ["https://" + env("WEBSITE_HOSTNAME")]
+CSRF_TRUSTED_ORIGINS = [
+    "https://"
+    + env(
+        "WEBSITE_HOSTNAME",
+        "https://valearns-chatapp-v1-epf8gwcndmavcufx.australiacentral-01.azurewebsites.net/",
+    )
+]
 
 DEBUG = False
 
-SECRET_KEY = env("MY_SECRET_KEY")
+SECRET_KEY = env("MY_SECRET_KEY", "4=ke^yg@lpb-po^&5hw5=&d0tr+usps==flhm%qoyeh!32*n8u")
 
 
 MIDDLEWARE = [
