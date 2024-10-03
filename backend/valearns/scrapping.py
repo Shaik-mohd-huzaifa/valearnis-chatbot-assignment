@@ -4,20 +4,14 @@ from django.conf import settings
 from langchain_community.document_loaders import WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
+from django.config import settings
 
 # from langchain_community.embeddings import AzureOpenAIEmbeddings
 from langchain_openai import AzureOpenAIEmbeddings
 
 
-client = AzureOpenAI(
-    azure_endpoint="https://wasp-ai-openai.openai.azure.com/",
-    api_key="2704e1c05ed94dfea045cb86d1d8c86c",
-    api_version="2023-05-15",
-    azure_deployment="text-embedding-3-small",
-)
-
-AZURE_OPENAI_ENDPOINT = "https://wasp-ai-openai.openai.azure.com/"
-AZURE_OPENAI_API_KEY = "2704e1c05ed94dfea045cb86d1d8c86c"
+AZURE_OPENAI_ENDPOINT = settings.AZURE_OPENAI_ENDPOINT
+AZURE_OPENAI_API_KEY = settings.AZURE_OPENAI_API_KEY
 AZURE_OPENAI_API_VERSION = "2024-02-01"
 
 embeddingo = AzureOpenAIEmbeddings(model="text-embedding-3-small", chunk_size=250)
