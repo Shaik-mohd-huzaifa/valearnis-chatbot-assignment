@@ -2,7 +2,7 @@ import { PromptActionTypes } from "./Prompt.actionTypes";
 
 // Inital State for the prompt object when the application loads
 const Initial_State = {
-    prompts: ["What is Quantum Physics?", "# How is the Cow"],
+    prompts: [],
 }
 
 
