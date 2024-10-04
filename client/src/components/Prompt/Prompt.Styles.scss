@@ -1,0 +1,18 @@
+.prompt{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    p{
+        padding: 10px 20px;
+        background-color: #ffc107;
+        border-radius: 25px;
+        border: 1px solid black;
+        color: black;
+        font-size: 16px;
+        max-width: 90%;
+        margin: 0;
+    }
+}
+.prompt.Right-Prompt{
+    justify-content: flex-start;
+}

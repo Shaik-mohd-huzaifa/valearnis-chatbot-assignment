@@ -2,22 +2,29 @@ import tiktoken  # Use the tiktoken library for token counting
 
 # your_app/gpt_services.py
 
-from openai import AzureOpenAI
+from openai import AzureOpenAI, OpenAI
 from langchain_core.prompts import PromptTemplate
 import openai
 from django.conf import settings
 
-client = AzureOpenAI(
-    api_key=settings.AZURE_OPENAI_API_KEY,
-    azure_deployment="wasp-ai",
-    azure_endpoint=settings.AZURE_OPENAI_ENDPOINT,
-    api_version="2023-05-15",
-)
+# client = AzureOpenAI(
+#     api_key=settings.AZURE_OPENAI_API_KEY,
+#     azure_deployment="wasp-ai",
+#     azure_endpoint=settings.AZURE_OPENAI_ENDPOINT,
+#     api_version="2023-05-15",
+# )
 
+client = OpenAI(api_key=settings.OPENAI_API_KEY, base_url=settings.OPENAI_ENDPOINT)
 
 def get_gpt_response(prompt):
     response = client.chat.completions.create(
-        messages=[{"role": "user", "content": prompt}],
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a Assistant who answer users queries. Response in normal text no markdown responses",
+            },
+            {"role": "user", "content": prompt},
+        ],
         model="gpt-4o",
         max_tokens=1000,
     )
@@ -31,15 +38,14 @@ def tokenLimit(prompt):
     # Count the number of tokens
     token_count = len(encoding.encode(prompt))
 
-    if token_count > 1081:
+    if token_count > 10:
         return False
     else:
         return True
 
 
 prompt_template = """
-    You are a assisstant to answer the user queries based on the context provided. Respond with the context if the context is empty try to answer on your own
-    
+    You are a assisstant to answer the user queries based on the context provided. Respond with the context if the context is empty try to answer queries on your own and no markdown response only respond in normal text 
     Context: {context}
     
     Query: {query}
@@ -47,13 +53,13 @@ prompt_template = """
 
 prompt = PromptTemplate.from_template(template=prompt_template)
 
-
+# GPT Service where the user query and context is passed for response
 def get_gpt_response_with_context(prompt, query_context):
     formatted_prompt = prompt.format(context=query_context, query=prompt)
 
     response = client.chat.completions.create(
         messages=[{"role": "user", "content": formatted_prompt}],
-        model="gpt-4o",
+        model="gpt-4",
         max_tokens=1000,
     )
     return response.choices[0].message.content

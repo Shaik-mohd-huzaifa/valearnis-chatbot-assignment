@@ -1,8 +1,9 @@
 import { useState } from "react"
-import getResponse from "../../utils/get.response"
+import getResponse from "../../utils/getresponse"
 import { useDispatch } from "react-redux"
-import { UpdateResponsePrompt, UpdateUserPrompt } from "../../store/Prompt/Prompt.actions"
+import { UpdatePrompt } from "../../store/Prompt/Prompt.actions"
 import {FaArrowUpLong} from "react-icons/fa6"
+import "./PromptInput.styles.scss"
 import AutoResizeTextarea from "../TextArea/TextArea.component"
 
 function PromptInput() {
@@ -13,21 +14,24 @@ function PromptInput() {
 
     async function handleSumbit(){
         try{
-            dispatch(UpdateUserPrompt(prompt))
+            dispatch(UpdatePrompt(prompt))
+            setPrompt("")
             const res = await getResponse(prompt)
-            dispatch(UpdateResponsePrompt(res['response']))
+            dispatch(UpdatePrompt(res.response))
         }catch(error){
             setErrorMessage(error)
+            
         }
+    }
+
+    function HandleChange(value){
+        setPrompt(value)
     }
 
     return (
         <div className="prompt-input-container">
-            <textarea name="prompt-input" id="" value={prompt} onChange={(e) => setPrompt(e.target.value)}>
-
-            </textarea>
-            <AutoResizeTextarea/>
-            <button className="prompt-input-button" onClick={handleSumbit}><FaArrowUpLong/></button>
+            <AutoResizeTextarea value={prompt} onChange={HandleChange} />
+            <button className="prompt-input-button" onClick={handleSumbit} disabled={!prompt}><FaArrowUpLong/></button>
             <p>{errorMessage}</p>
         </div>
     )

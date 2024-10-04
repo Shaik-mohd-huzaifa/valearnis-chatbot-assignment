@@ -1,6 +1,13 @@
 import { PromptActionTypes } from "./Prompt.actionTypes";
 
 // Updates New Prompt/Query Send by User to the user array
+export const UpdatePrompt = (prompt) => {
+    return {
+        payload: prompt,
+        type: PromptActionTypes.UPDATE_PROMPT
+    }
+}
+// Updates New Prompt/Query Send by User to the user array
 export const UpdateUserPrompt = (prompt) => {
     return {
         payload: prompt,

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-const AutoResizeTextarea = () => {
+const AutoResizeTextarea = ({value, onChange}) => {
   const [height, setHeight] = useState("50px");
   const textareaRef = useRef(null);
 
@@ -12,6 +12,10 @@ const AutoResizeTextarea = () => {
     setHeight(`${newHeight}px`);
   };
 
+  function HandleChange(e){
+    onChange(e.target.value)
+  }
+
   useEffect(() => {
     adjustHeight(); // Ensure it adjusts height initially
   }, []);
@@ -19,15 +23,18 @@ const AutoResizeTextarea = () => {
   return (
     <textarea
       ref={textareaRef}
+      value={value}
+      onChange={HandleChange}
+
       style={{
-        width: "300px", // Fixed width
+        width: "92%",
         height: height, // Dynamic height based on content
         maxHeight: "200px", // Max height
         resize: "none", // Disable resizing
-        overflowY: "scroll", // Hide scrollbar when max height is reached
+        overflowY: "auto", // Hide scrollbar when max height is reached
       }}
       onInput={adjustHeight} // Call adjustHeight on every input
-      placeholder="Start typing..."
+      placeholder="New Chat....."
     />
   );
 };

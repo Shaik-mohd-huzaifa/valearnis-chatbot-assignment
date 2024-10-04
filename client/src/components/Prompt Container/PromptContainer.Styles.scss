@@ -1,0 +1,14 @@
+.prompt-container{
+    width: 55%;
+    height: 90%;
+    border-radius: 15px;
+    background-color: #f6f6f8;
+    // background-color: #243c9c;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 10px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}

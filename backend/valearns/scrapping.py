@@ -5,25 +5,22 @@ from langchain_community.document_loaders import WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from django.conf import settings
+import os
 
 # from langchain_community.embeddings import AzureOpenAIEmbeddings
-from langchain_openai import AzureOpenAIEmbeddings
+from langchain_openai import AzureOpenAIEmbeddings, OpenAIEmbeddings
 
 
 AZURE_OPENAI_ENDPOINT = settings.AZURE_OPENAI_ENDPOINT
 AZURE_OPENAI_API_KEY = settings.AZURE_OPENAI_API_KEY
 AZURE_OPENAI_API_VERSION = "2024-02-01"
-
-embeddingo = AzureOpenAIEmbeddings(model="text-embedding-3-small", chunk_size=250)
+# OPENAI_API_KEY = settings.OPENAI_API_KEY
+embeddingo = AzureOpenAIEmbeddings(
+    model="text-embedding-3-small",
+    chunk_size=250,
+)
 
 VECTOR_STORE_PATH = "./valearns/vectorStore"
-
-
-# Function to get embeddings from OpenAI
-def get_openai_embedding(text):
-    embedding = client.embeddings.create(input=text, model="text-embedding-3-small")
-
-    return embedding.data[0].embedding
 
 
 # Web scraping function

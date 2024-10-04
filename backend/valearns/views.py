@@ -14,6 +14,7 @@ from valearns.scrapping import scrape_webpage
 from valearns.scrapping import similaritySearch
 from openai import APIConnectionError, RateLimitError, OpenAIError
 import json
+import openai
 
 # Load pre-trained ML model and vectorizer
 model = load_model(
@@ -31,7 +32,6 @@ def chatbot_view(request):
             # Ensure the request body is in JSON format
             data = json.loads(request.body.decode("utf-8"))
             user_input = data.get("user_input")
-            tr_intent = data.get("intent")
 
             if user_input is None:
                 return JsonResponse(
@@ -44,7 +44,7 @@ def chatbot_view(request):
             # Classify user intent using the cleaned input
             intent = classify_input(cleaned_input, vectorizer, model)
 
-            update_model(user_input, tr_intent)
+            update_model(user_input, intent)
 
             user_input_token_count = tokenLimit(user_input)
 
@@ -53,20 +53,21 @@ def chatbot_view(request):
                 if intent == "LLM":
                     try:
                         response_text = get_gpt_response(user_input)
-                    except APIConnectionError:
+                    except openai.APIConnectionError:
                         return JsonResponse(
                             {"error": "api-connection-error/@openai"},
                             status=503,  # This 503 status code indicates service unavailable
                         )
-                    except RateLimitError:
+                    except openai.RateLimitError:
                         return JsonResponse(
                             {"error": "rate-limit-error/@openai"}, status=503
                         )
-                    except OpenAIError:
+                    except openai.OpenAIError:
                         return JsonResponse(
                             {"error": "open-ai-error/@openai"}, status=503
                         )
                 elif intent == "Internet Search":
+                    response_text = ""
                     try:
                         response_text = FactCheckDataFetching(user_input)
                         response_text = get_gpt_response_with_context(
@@ -82,6 +83,7 @@ def chatbot_view(request):
                 # Return a JSON response
                 return JsonResponse({"response": response_text})
             else:
+                # Returns if the input limit exists the maximum Amount
                 return JsonResponse({"error": "Token Limit Error"}, status=500)
 
         except json.JSONDecodeError:
