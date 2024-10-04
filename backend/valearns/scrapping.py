@@ -6,15 +6,15 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from django.conf import settings
 import os
-
-# from langchain_community.embeddings import AzureOpenAIEmbeddings
-from langchain_openai import AzureOpenAIEmbeddings, OpenAIEmbeddings
+from langchain_openai import AzureOpenAIEmbeddings
 
 
 AZURE_OPENAI_ENDPOINT = settings.AZURE_OPENAI_ENDPOINT
 AZURE_OPENAI_API_KEY = settings.AZURE_OPENAI_API_KEY
 AZURE_OPENAI_API_VERSION = "2024-02-01"
-# OPENAI_API_KEY = settings.OPENAI_API_KEY
+
+
+# Change this with your OpenAIEmbeddings or Other
 embeddingo = AzureOpenAIEmbeddings(
     model="text-embedding-3-small",
     chunk_size=250,
@@ -43,18 +43,13 @@ def scrape_webpage():
 def update_vectorStore():
     docs = scrape_webpage()
 
-    # for doc in docs:
-    #     doc_embedding = get_openai_embedding(doc.page_content)
-    #     doc.metadata["embedding"] = doc_embedding
-
-    # embeddings = [doc.metadata["embedding"] for doc in docs]
-
     vectorStore = FAISS.from_documents(docs, embeddingo)
 
     vectorStore.save_local(VECTOR_STORE_PATH)
 
 
-update_vectorStore()
+# Scraped Data from webpages is converted into embeddings and stored in VectorStore
+# update_vectorStore()
 
 
 def similaritySearch(query):
