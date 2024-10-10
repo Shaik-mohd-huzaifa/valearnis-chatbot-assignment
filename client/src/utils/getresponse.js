@@ -3,7 +3,7 @@ import axios from "axios";
 
 async function getResponse(prompt){
     try{
-        const res = await axios.post("http://127.0.0.1:8000/valearns/chat", {"user_input": prompt})
+        const res = await axios.post("https://valearnis-chatbot-a61ab76025b4.herokuapp.com/valearns/chat", {"user_input": prompt})
         return res.data
     }catch(error){
             // return {response: `Connection Error ! \n ${error.response.status}`}
@@ -13,6 +13,9 @@ async function getResponse(prompt){
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);
+
+                return 
+
               } else if (error.request) {
                 // The request was made but no response was received
                 // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -23,7 +26,7 @@ async function getResponse(prompt){
                 console.log('Error', error.message);
               }
               console.log(error.config);
-              return {"response": "Network Error"}
+              return {"response": "Server Error"}
             }
 }
 
