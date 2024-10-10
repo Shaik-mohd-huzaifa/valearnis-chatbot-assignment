@@ -3,7 +3,7 @@ import getResponse from "../../utils/getresponse"
 import { useDispatch } from "react-redux"
 import { UpdatePrompt } from "../../store/Prompt/Prompt.actions"
 import {FaArrowUpLong} from "react-icons/fa6"
-import "./PromptInput.styles.scss"
+import "./PromptInput.Styles.scss"
 import AutoResizeTextarea from "../TextArea/TextArea.component"
 
 function PromptInput() {
