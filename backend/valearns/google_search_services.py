@@ -42,21 +42,5 @@ url_fetching_tool = Tool(
 
 def FactCheckDataFetching(query):
     compound_result = main_search_tool.invoke(query)
-    # urls = url_fetching_tool.invoke(query)
 
-    # Load HTML
-    # loader = AsyncHtmlLoader([url["link"] for url in urls])
-    # html = loader.load()
-
-    # Transform
-    # bs_transformer = BeautifulSoupTransformer()
-    # docs_transformed = bs_transformer.transform_documents(
-    #     html, tags_to_extract=["p", "span"]
-    # )
-
-    # return {
-    #     "compound_result": compound_result,
-    #     "data_from_urls": [docs.page_content for docs in docs_transformed],
-    #     "meta_data": urls,
-    # }
     return f"Result: {compound_result}"

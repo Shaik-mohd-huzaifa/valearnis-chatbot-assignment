@@ -1,19 +1,10 @@
 import tiktoken  # Use the tiktoken library for token counting
-
-# your_app/gpt_services.py
-
 from openai import AzureOpenAI, OpenAI
 from langchain_core.prompts import PromptTemplate
 import openai
 from django.conf import settings
 
-# client = AzureOpenAI(
-#     api_key=settings.AZURE_OPENAI_API_KEY,
-#     azure_deployment="wasp-ai",
-#     azure_endpoint=settings.AZURE_OPENAI_ENDPOINT,
-#     api_version="2023-05-15",
-# )
-
+# Replace it with your Credentials
 client = OpenAI(api_key=settings.OPENAI_API_KEY, base_url=settings.OPENAI_ENDPOINT)
 
 def get_gpt_response(prompt):

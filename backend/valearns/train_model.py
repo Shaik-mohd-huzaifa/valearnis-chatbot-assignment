@@ -67,7 +67,7 @@ def train_initial_model():
     joblib.dump(best_model, "./valearns/ml_models_data/model.pkl")
     joblib.dump(vectorizer, "./valearns/ml_models_data/vectorizer.pkl")
 
-
+# No Need to calling this function because the model is already trained on training dataset 
 # train_initial_model()
 
 # Function to update the model with new data
